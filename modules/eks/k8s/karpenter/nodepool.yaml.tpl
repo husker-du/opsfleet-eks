@@ -18,10 +18,10 @@ spec:
           values: ["spot"]
         - key: "karpenter.k8s.aws/instance-category"
           operator: In
-          values: ["c", "m", "r"]
+          values: ["t", "c", "m", "r"]
         - key: "karpenter.k8s.aws/instance-cpu"
           operator: In
-          values: ["4", "8", "16", "32"]
+          values: ["1", "2", "4", "8", "16", "32"]
         - key: "karpenter.k8s.aws/instance-hypervisor"
           operator: In
           values: ["nitro"]
@@ -29,7 +29,7 @@ spec:
           operator: Gt
           values: ["2"]
   limits:
-    cpu: 1000
+    cpu: 10
   disruption:
     consolidationPolicy: WhenEmpty
     consolidateAfter: 30s

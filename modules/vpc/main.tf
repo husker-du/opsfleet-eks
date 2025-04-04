@@ -1,6 +1,6 @@
-provider "aws" {
-  region = var.region
-}
+# provider "aws" {
+#   region = var.region
+# }
 
 module "vpc_context" {
   source  = "cloudposse/label/null"
@@ -51,8 +51,6 @@ module "intra_context" {
   context    = module.this.context
   attributes = ["intra"]
 }
-
-data "aws_availability_zones" "available" {}
 
 #########################################
 # VPC

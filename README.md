@@ -6,6 +6,7 @@ Karpenter controller is provisioned on top of an EKS Managed Node Group (named `
 ## Requirements
 
 - [terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
+- [terragrunt](https://terragrunt.gruntwork.io/docs/getting-started/install)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/)
 
 ## Modules
@@ -19,9 +20,8 @@ The configuration uses two terraform modules to create the EKS cluster:
 To provision the provided EKS configuration you need to execute:
 
 ```bash
-$ terraform -chdir=live/dev init
-$ terraform -chdir=live/dev plan
-$ terraform -chdir=live/dev apply --auto-approve
+$ terragurnt -working-dir=./live run-all plan
+$ terragrunt -working-dir=-/live run-all apply
 ```
 
 The modules will be deployed with the default configuration. To set up our own configuration, provide your own variables file by renaming the `terraform.tfvars.example` to `terraform.tfvars` and execute the previous `terraform` commands which will read the configuration from the variables file.
@@ -173,5 +173,5 @@ $ kubectl delete deployment workload-graviton
 2. Remove the resources created by Terraform
 
 ```bash
-$ terraform destroy --auto-approve
+$ terragrunt -working-dir=-/live run-all destroy -auto-approve
 ```
