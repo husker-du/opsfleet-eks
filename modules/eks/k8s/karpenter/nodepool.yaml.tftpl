@@ -8,7 +8,7 @@ spec:
       nodeClassRef:
         group: karpenter.k8s.aws
         kind: EC2NodeClass
-        name: default
+        name: ${ec2nodeclass_name}
       requirements:
         - key: kubernetes.io/arch
           operator: In

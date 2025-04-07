@@ -27,7 +27,7 @@ resource "helm_release" "karpenter" {
   wait             = var.karpenter_wait
 
   values = [
-    templatefile("${path.module}/k8s/karpenter/karpenter_values.yaml.tpl", {
+    templatefile("${path.module}/k8s/karpenter/karpenter_values.yaml.tftpl", {
       cluster_name     = module.eks.cluster_name
       cluster_endpoint = module.eks.cluster_endpoint
       queue_name       = module.karpenter.queue_name
@@ -45,15 +45,13 @@ resource "helm_release" "karpenter" {
 # NodePool and EC2NodeClass
 ################################################################################
 resource "kubectl_manifest" "karpenter_node_pool" {
-  yaml_body = file("${path.module}/k8s/karpenter/nodepool.yaml.tpl")
-
-  depends_on = [
-    kubectl_manifest.karpenter_node_class
-  ]
+  yaml_body = templatefile("${path.module}/k8s/karpenter/nodepool.yaml.tftpl", {
+    ec2nodeclass_name = kubectl_manifest.karpenter_node_class.name
+  })
 }
 
 resource "kubectl_manifest" "karpenter_node_class" {
-  yaml_body = templatefile("${path.module}/k8s/karpenter/nodeclass.yaml.tpl", {
+  yaml_body = templatefile("${path.module}/k8s/karpenter/nodeclass.yaml.tftpl", {
     cluster_name = module.eks.cluster_name
   })
 
