@@ -18,15 +18,13 @@ module "karpenter" {
 }
 
 resource "helm_release" "karpenter" {
-  name                = "karpenter"
-  namespace           = var.karpenter_namespace
-  create_namespace    = true
-  chart               = var.karpenter_chart
-  version             = var.karpenter_version
-  repository          = var.karpenter_repository
-  repository_username = data.aws_ecrpublic_authorization_token.token.user_name
-  repository_password = data.aws_ecrpublic_authorization_token.token.password
-  wait                = var.karpenter_wait
+  name             = "karpenter"
+  namespace        = var.karpenter_namespace
+  create_namespace = true
+  chart            = var.karpenter_chart
+  version          = var.karpenter_version
+  repository       = var.karpenter_repository
+  wait             = var.karpenter_wait
 
   values = [
     templatefile("${path.module}/k8s/karpenter/karpenter_values.yaml.tpl", {
