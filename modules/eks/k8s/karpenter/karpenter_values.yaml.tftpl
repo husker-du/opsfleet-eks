@@ -1,5 +1,5 @@
 nodeSelector:
-  karpenter.sh/controller: 'true'
+  CriticalAddonsOnly: 'true'
 settings:
   clusterName: ${cluster_name}
   clusterEndpoint: ${cluster_endpoint}
@@ -7,6 +7,7 @@ settings:
 tolerations:
   - key: CriticalAddonsOnly
     operator: Exists
+    effect: NoSchedule
   - key: karpenter.sh/controller
     operator: Exists
     effect: NoSchedule

@@ -36,7 +36,7 @@ module "eks" {
           # Allow CoreDNS to run on the same nodes as the Karpenter controller
           # for use during cluster creation when Karpenter nodes do not yet exist
           {
-            key    = "karpenter.sh/controller"
+            key    = "CriticalAddonsOnly"
             value  = "true"
             effect = "NoSchedule"
           }
@@ -60,14 +60,14 @@ module "eks" {
 
       labels = {
         # Used to ensure Karpenter runs on nodes that it does not manage
-        "karpenter.sh/controller" = "true"
+        "CriticalAddonsOnly" = "true"
       }
 
       taints = {
         # The pods that do not tolerate this taint should run on nodes
         # created by Karpenter
         karpenter = {
-          key    = "karpenter.sh/controller"
+          key    = "CriticalAddonsOnly"
           value  = "true"
           effect = "NO_SCHEDULE"
         }
