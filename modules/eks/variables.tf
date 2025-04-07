@@ -81,12 +81,6 @@ variable "system_pool_config" {
 #############################################################
 # Karpenter variables
 #############################################################
-variable "karpenter_version" {
-  description = "Karpenter's helm chart version"
-  type        = string
-  default     = "1.3.3"
-}
-
 variable "karpenter_wait" {
   description = "Karpenter's helm chart version"
   type        = bool
@@ -109,4 +103,43 @@ variable "karpenter_chart" {
   description = "Name of the karpenter helm chart to be installed"
   type        = string
   default     = "karpenter"
+}
+
+variable "karpenter_version" {
+  description = "Karpenter's helm chart version"
+  type        = string
+  default     = "1.3.3"
+}
+
+#############################################################
+# NGINX ingress controller variables
+#############################################################
+variable "ingress_wait" {
+  description = "Nginx ingress controller's helm chart version"
+  type        = bool
+  default     = false
+}
+
+variable "ingress_namespace" {
+  description = "The namespece where to deploy the nginx ingress controller"
+  type        = string
+  default     = "nginx-ingress"
+}
+
+variable "ingress_repository" {
+  description = "Repository where to locate the nginx ingress controller helm chart"
+  type        = string
+  default     = "oci://ghcr.io/nginx/charts"
+}
+
+variable "ingress_chart" {
+  description = "Name of the nginx ingress controller helm chart to be installed"
+  type        = string
+  default     = "nginx-ingress"
+}
+
+variable "ingress_version" {
+  description = "Nginx ingress controller's helm chart version"
+  type        = string
+  default     = "2.0.1"
 }
